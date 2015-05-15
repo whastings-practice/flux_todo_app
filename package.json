@@ -1,0 +1,33 @@
+{
+  "name": "flux_todo_app",
+  "version": "0.0.1",
+  "description": "Doing the Todo App thing w/ Flux, React, and ImmutableJS.",
+  "main": " ",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whastings-practice/flux_todo_app.git"
+  },
+  "author": "Will Hastings <will@objectdotcreate.net>",
+  "license": " ",
+  "bugs": {
+    "url": "https://github.com/whastings-practice/flux_todo_app/issues"
+  },
+  "homepage": "https://github.com/whastings-practice/flux_todo_app#readme",
+  "dependencies": {
+    "flux": "^2.0.3",
+    "immutable": "^3.7.2",
+    "protomatter": "^0.2.1",
+    "react": "^0.13.3"
+  },
+  "devDependencies": {
+    "babelify": "^6.1.0",
+    "browserify": "^10.2.0",
+    "gulp": "^3.8.11",
+    "reactify": "^1.1.1",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
