@@ -17,8 +17,10 @@
   },
   "homepage": "https://github.com/whastings-practice/flux_todo_app#readme",
   "dependencies": {
+    "cuid": "^1.2.5",
     "flux": "^2.0.3",
     "immutable": "^3.7.2",
+    "keymirror": "^0.1.1",
     "protomatter": "^0.2.1",
     "react": "^0.13.3"
   },

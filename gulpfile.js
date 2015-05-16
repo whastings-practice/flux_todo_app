@@ -59,4 +59,4 @@ gulp.task('serve_dev', function() {
 });
 
 gulp.task('dev', ['build_dev', 'watch_dev', 'serve_dev']);
-gulp.task('default', ['dev'])
+gulp.task('default', ['dev']);
