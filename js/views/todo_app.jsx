@@ -1,5 +1,8 @@
 import Immutable from 'immutable';
 import React from 'react';
+import todoActions from '../actions/todo_actions';
+import TodoForm from './todo_form.jsx';
+import TodoList from './todo_list.jsx';
 
 var IMap = Immutable.Map;
 
@@ -14,17 +17,18 @@ export default React.createClass({
     return {todos: new IMap()};
   },
   render() {
-    var todos = this.state.todos.toArray();
+    var todos = this.state.todos;
     return (
       <div className="todos">
         <h1>Your Todos</h1>
-        <ul className="todos-list">
-          {todos.map(todo => {
-            return <li key={todo.get('id')}>{todo.get('title')}</li>
-          })}
-        </ul>
+        <TodoForm onSave={this._createTodo}/>
+        <TodoList items={todos}/>
       </div>
     );
+  },
+  _createTodo(data) {
+    todoActions.create(data);
+    return true;
   },
   _update() {
     var todos = this.props.store.all();
