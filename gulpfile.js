@@ -21,6 +21,7 @@ var isLR = false;
 
 gulp.task('build_dev', function() {
   var builder = browserify({
+    debug: true,
     entries: './js/app.jsx',
     transform: [babelify]
   });
