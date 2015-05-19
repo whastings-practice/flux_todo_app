@@ -1,19 +1,29 @@
+import closureType from 'closure-type';
 import dispatcher from '../app_dispatcher';
 import constants from '../constants/todo_constants';
-import cuid from 'cuid';
 
-export default {
-  create(todo) {
-    todo.id = cuid();
-    dispatcher.dispatch({
-      type: constants.TODO_CREATE,
-      todos: [todo]
-    });
-  },
-  createMultiple(todos) {
-    dispatcher.dispatch({
-      type: constants.TODO_CREATE,
-      todos
-    });
-  }
-};
+export default closureType(function todoActions(self, api, initArgs) {
+  initArgs(function(persistence) {
+    self.persistence = persistence;
+  })();
+
+  closureType.extend(api, {
+    create(todo) {
+      self.persistence.create(todo).then(todo => {
+        dispatcher.dispatch({
+          type: constants.TODO_CREATE,
+          todos: [todo]
+        });
+      });
+    },
+
+    loadAll() {
+      self.persistence.index().then(todos => {
+        dispatcher.dispatch({
+          type: constants.TODO_CREATE,
+          todos
+        });
+      });
+    }
+  });
+});

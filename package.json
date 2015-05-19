@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/whastings-practice/flux_todo_app#readme",
   "dependencies": {
+    "closure-type": "^0.1.0",
     "cuid": "^1.2.5",
     "flux": "^2.0.3",
     "immutable": "^3.7.2",

@@ -1,6 +1,5 @@
 import Immutable from 'immutable';
 import React from 'react';
-import todoActions from '../actions/todo_actions';
 import TodoForm from './todo_form.jsx';
 import TodoList from './todo_list.jsx';
 
@@ -27,7 +26,7 @@ export default React.createClass({
     );
   },
   _createTodo(data) {
-    todoActions.create(data);
+    this.props.actions.create(data);
     return true;
   },
   _update() {
