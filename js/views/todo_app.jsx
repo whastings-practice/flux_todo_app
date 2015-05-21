@@ -1,5 +1,6 @@
 import Immutable from 'immutable';
 import React from 'react';
+import TodoFilter from './todo_filter.jsx';
 import TodoForm from './todo_form.jsx';
 import TodoList from './todo_list.jsx';
 
@@ -13,18 +14,23 @@ export default React.createClass({
     this.props.store.removeListener('change', this._update);
   },
   getInitialState() {
-    return {todos: new IMap()};
+    return {currentFilter: 'Uncompleted', todos: new IMap()};
   },
   render() {
     var todos = this.state.todos,
-        actions = this.props.actions;
+        actions = this.props.actions,
+        currentFilter = this.state.currentFilter;
     return (
       <div className="todos">
         <h1>Your Todos</h1>
         <TodoForm onSave={this._createTodo}/>
-        <TodoList items={todos} actions={actions}/>
+        <TodoList items={todos} actions={actions} filter={currentFilter}/>
+        <TodoFilter onFilter={this._addFilterClass}/>
       </div>
     );
+  },
+  _addFilterClass(filter) {
+    this.setState({currentFilter: filter});
   },
   _createTodo(data) {
     this.props.actions.create(data);

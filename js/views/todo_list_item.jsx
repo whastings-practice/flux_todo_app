@@ -12,6 +12,8 @@ export default React.createClass({
 
     if (completed) {
       classes += ' todo-list__item--completed';
+    } else {
+      classes += ' todo-list__item--uncompleted';
     }
 
     return (
