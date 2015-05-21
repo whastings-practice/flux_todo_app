@@ -10,7 +10,8 @@ var EventEmitter = events.EventEmitter,
     instance;
 
 var ACTION_MAP = {
-  [constants.TODO_CREATE]: 'create'
+  [constants.TODO_CREATE]: 'create',
+  [constants.TODO_UPDATE]: 'update'
 };
 
 export default Protomatter.compose(EventEmitter.prototype, {
@@ -22,9 +23,6 @@ export default Protomatter.compose(EventEmitter.prototype, {
   // Public Methods:
   all() {
     return this.todos;
-  },
-  get(id) {
-
   },
   // Static methods:
   createInstance(dispatcher) {
@@ -53,6 +51,10 @@ export default Protomatter.compose(EventEmitter.prototype, {
         handler(action);
         this.emit('change');
       }
+    },
+    update(action) {
+      var todo = action.todo;
+      this.todos = this.todos.set(todo.id, Immutable.fromJS(todo));
     }
   }
 });

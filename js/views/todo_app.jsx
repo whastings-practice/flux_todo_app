@@ -16,12 +16,13 @@ export default React.createClass({
     return {todos: new IMap()};
   },
   render() {
-    var todos = this.state.todos;
+    var todos = this.state.todos,
+        actions = this.props.actions;
     return (
       <div className="todos">
         <h1>Your Todos</h1>
         <TodoForm onSave={this._createTodo}/>
-        <TodoList items={todos}/>
+        <TodoList items={todos} actions={actions}/>
       </div>
     );
   },
