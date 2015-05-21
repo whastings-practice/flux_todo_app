@@ -22,7 +22,6 @@
     "flux": "^2.0.3",
     "immutable": "^3.7.2",
     "keymirror": "^0.1.1",
-    "protomatter": "^0.2.1",
     "react": "^0.13.3"
   },
   "devDependencies": {

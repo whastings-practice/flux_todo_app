@@ -1,60 +1,62 @@
 'use strict';
 
+import closureType from 'closure-type';
 import constants from '../constants/todo_constants';
 import events from 'events';
 import Immutable from 'immutable';
-import Protomatter from 'protomatter';
 
 var EventEmitter = events.EventEmitter,
     IMap = Immutable.Map,
     instance;
 
-var ACTION_MAP = {
-  [constants.TODO_CREATE]: 'create',
-  [constants.TODO_UPDATE]: 'update'
-};
+var todoStoreType = closureType(function(self, api, initArgs) {
+  var ACTION_MAP = {
+    [constants.TODO_CREATE]: create,
+    [constants.TODO_UPDATE]: update
+  };
 
-export default Protomatter.compose(EventEmitter.prototype, {
-  init(dispatcher) {
-    // TODO: Why do I need to bind here? Protomatter should take care of it.
-    this.dispatchToken = dispatcher.register(this.processAction.bind(this));
-    this.todos = new IMap();
-  },
-  // Public Methods:
-  all() {
-    return this.todos;
-  },
-  // Static methods:
+  initArgs(function(dispatcher) {
+    self.dispatchToken = dispatcher.register(processAction);
+    self.todos = new IMap();
+  })();
+
+  closureType.extend(api, {
+    all() {
+      return self.todos;
+    }
+  });
+
+  function create(action) {
+    var newTodos = action.todos,
+        todos = self.todos,
+        todoMap = {};
+    for (var todo of newTodos) {
+      todoMap[todo.id] = Immutable.fromJS(todo);
+    }
+    self.todos = todos.merge(todoMap);
+  }
+
+  function processAction(action) {
+    var handler = ACTION_MAP[action.type];
+    if (typeof handler === 'function') {
+      handler(action);
+      api.emit('change');
+    }
+  }
+
+  function update(action) {
+    var todo = action.todo;
+    self.todos = self.todos.set(todo.id, Immutable.fromJS(todo));
+  }
+}, [EventEmitter.prototype]);
+
+export default {
   createInstance(dispatcher) {
     if (!instance) {
-      instance = this.create(dispatcher);
+      instance = todoStoreType(dispatcher);
     }
   },
   getInstance() {
     return instance;
-  },
-  // Private methods;
-  private: {
-    create(action) {
-      var newTodos = action.todos,
-          todos = this.todos,
-          todoMap = {};
-      for (var todo of newTodos) {
-        todoMap[todo.id] = Immutable.fromJS(todo);
-      }
-      this.todos = todos.merge(todoMap);
-    },
-    processAction(action) {
-      var handlerName = ACTION_MAP[action.type],
-          handler = this[handlerName];
-      if (typeof handler === 'function') {
-        handler(action);
-        this.emit('change');
-      }
-    },
-    update(action) {
-      var todo = action.todo;
-      this.todos = this.todos.set(todo.id, Immutable.fromJS(todo));
-    }
   }
-});
+};
