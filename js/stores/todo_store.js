@@ -12,6 +12,7 @@ var EventEmitter = events.EventEmitter,
 var todoStoreType = closureType(function(self, api, initArgs) {
   var ACTION_MAP = {
     [constants.TODO_CREATE]: create,
+    [constants.TODO_REMOVE]: remove,
     [constants.TODO_UPDATE]: update
   };
 
@@ -42,6 +43,11 @@ var todoStoreType = closureType(function(self, api, initArgs) {
       handler(action);
       api.emit('change');
     }
+  }
+
+  function remove(action) {
+    var todo = action.todo;
+    self.todos = self.todos.delete(todo.id);
   }
 
   function update(action) {

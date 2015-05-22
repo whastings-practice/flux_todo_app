@@ -20,8 +20,14 @@ export default React.createClass({
       <li className={classes}>
         <input type="checkbox" checked={completed} onChange={this._toggleCompleted}/>
         {todo.get('title')}
+        <button onClick={this._destroy} type="button" className="todo-list__item__delete-btn">
+          Delete
+        </button>
       </li>
     );
+  },
+  _destroy() {
+    this.props.actions.remove(this.props.todo.toJS());
   },
   _toggleCompleted() {
     var todo = this.props.todo,

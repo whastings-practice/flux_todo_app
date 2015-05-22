@@ -23,13 +23,19 @@ export default closureType(function localStorageApiType(self, api) {
     );
   }
 
+  function remove(todo) {
+    delete self.todos[todo.id];
+    saveAll(self.todos);
+    return Promise.resolve(todo);
+  }
+
   function update(todo) {
     self.todos[todo.id] = todo;
     saveAll(self.todos);
     return Promise.resolve(todo);
   }
 
-  closureType.extend(api, {create, index, update});
+  closureType.extend(api, {create, index, remove, update});
 });
 
 function retrieveAll() {

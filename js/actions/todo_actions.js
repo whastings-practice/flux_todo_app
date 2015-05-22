@@ -31,6 +31,15 @@ export default closureType(function todoActions(self, api, initArgs) {
       });
     },
 
+    remove(todo) {
+      self.persistence.remove(todo).then(() => {
+        dispatcher.dispatch({
+          type: constants.TODO_REMOVE,
+          todo
+        });
+      });
+    },
+
     update(todo, updates) {
       closureType.extend(todo, updates);
       self.persistence.update(todo).then(todo => {
