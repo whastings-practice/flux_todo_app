@@ -1,0 +1,42 @@
+//
+// Mixins:
+//
+
+// Borrowed from: https://css-tricks.com/snippets/sass/bem-mixins/
+@mixin el($el) {
+  &__#{$el} {
+    @content;
+  }
+}
+
+@mixin mod($mod) {
+  &--#{$mod} {
+    @content;
+  }
+}
+
+//
+// Styles:
+//
+
+.todo-list {
+  @include el(item) {
+    @include mod(completed) {
+      text-decoration: line-through;
+    }
+  }
+}
+
+.todo-list--completed .todo-list__item--uncompleted,
+.todo-list--uncompleted .todo-list__item--completed {
+  display: none;
+}
+
+.todo-filter {
+  @include el(link) {
+    margin-right: 10px;
+    @include mod(selected) {
+      font-weight: bold;
+    }
+  }
+}

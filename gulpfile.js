@@ -9,6 +9,7 @@ var gulp = require('gulp');
 var gulpLR = require('gulp-livereload');
 var gutil = require('gulp-util');
 var rename = require('gulp-rename');
+var sass = require('gulp-sass');
 var source = require('vinyl-source-stream');
 var serveStatic = require('serve-static');
 
@@ -19,7 +20,7 @@ var serveStatic = require('serve-static');
 
 var isLR = false;
 
-gulp.task('build_dev', function() {
+gulp.task('build_js', function() {
   var builder = browserify({
     debug: true,
     entries: './js/app.jsx',
@@ -41,15 +42,28 @@ gulp.task('build_dev', function() {
   return builder;
 });
 
+gulp.task('build_css', function() {
+  var builder = gulp.src('./css/app.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(rename('bundle.css'))
+    .pipe(gulp.dest('.'));
+
+  if (isLR) {
+    builder = builder.pipe(gulpLR());
+  }
+
+  return builder;
+});
+
 gulp.task('watch_dev', function() {
-  var watchTask = ['build_dev'];
+  var jsTask = ['build_js'];
 
   gulpLR.listen();
   isLR = true;
 
-  gulp.watch('./css/**/*.css', watchTask);
-  gulp.watch('./js/**/*', watchTask);
-  gulp.watch('./index.html', watchTask);
+  gulp.watch('./css/**/*.scss', ['build_css']);
+  gulp.watch('./js/**/*', jsTask);
+  gulp.watch('./index.html', jsTask);
 });
 
 gulp.task('serve_dev', function() {
@@ -59,5 +73,5 @@ gulp.task('serve_dev', function() {
     .listen(8000);
 });
 
-gulp.task('dev', ['build_dev', 'watch_dev', 'serve_dev']);
+gulp.task('dev', ['build_js', 'build_css', 'watch_dev', 'serve_dev']);
 gulp.task('default', ['dev']);
