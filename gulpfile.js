@@ -8,6 +8,7 @@ var browserify = require('browserify');
 var gulp = require('gulp');
 var gulpLR = require('gulp-livereload');
 var gutil = require('gulp-util');
+var path = require('path');
 var rename = require('gulp-rename');
 var sass = require('gulp-sass');
 var source = require('vinyl-source-stream');
@@ -44,7 +45,9 @@ gulp.task('build_js', function() {
 
 gulp.task('build_css', function() {
   var builder = gulp.src('./css/app.scss')
-    .pipe(sass().on('error', sass.logError))
+    .pipe(sass({
+      includePaths: [path.join(__dirname, 'node_modules')]
+    }).on('error', sass.logError))
     .pipe(rename('bundle.css'))
     .pipe(gulp.dest('.'));
 

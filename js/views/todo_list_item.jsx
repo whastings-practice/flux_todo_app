@@ -21,7 +21,8 @@ export default React.createClass({
         <input type="checkbox" checked={completed} onChange={this._toggleCompleted}/>
         {todo.get('title')}
         <button onClick={this._destroy} type="button" className="todo-list__item__delete-btn">
-          Delete
+          <span className="delete-icon" aria-hidden="true">✖</span>
+          <span className="todo-list__item__delete-btn__text">Delete</span>
         </button>
       </li>
     );

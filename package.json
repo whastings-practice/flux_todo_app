@@ -22,6 +22,7 @@
     "flux": "^2.0.3",
     "immutable": "^3.7.2",
     "keymirror": "^0.1.1",
+    "normalize.css": "^3.0.3",
     "react": "^0.13.3"
   },
   "devDependencies": {

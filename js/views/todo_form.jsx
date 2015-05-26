@@ -18,9 +18,13 @@ export default React.createClass({
         buttonText = this.props.buttonText;
     return (
       <form className="todo-list__form" onSubmit={this._save}>
-        <label>
-          Title: <input type="text" ref="titleInput" value={title} onChange={this._updateForm}/>
-        </label>
+        <label for="title-input">Title</label>
+        <input type="text"
+               id="title-input"
+               placeholder="Title"
+               ref="titleInput"
+               value={title}
+               onChange={this._updateForm}/>
         <button>{buttonText}</button>
       </form>
     );

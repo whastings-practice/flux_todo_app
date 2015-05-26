@@ -21,7 +21,7 @@ export default React.createClass({
         actions = this.props.actions,
         currentFilter = this.state.currentFilter;
     return (
-      <div className="todos">
+      <div className="todo-list-app">
         <h1>Your Todos</h1>
         <TodoForm onSave={this._createTodo}/>
         <TodoList items={todos} actions={actions} filter={currentFilter}/>
