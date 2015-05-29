@@ -4,6 +4,7 @@
 // Color inspiration: https://bootswatch.com/cerulean/
 //
 
+@import "css_utils/utils";
 @import "normalize.css/normalize";
 
 //
@@ -21,103 +22,6 @@ $text-colors: (
   link: #2fa4e7,
   title: #317eac
 );
-
-//
-// Functions:
-//
-
-@function list-implode($list, $separator) {
-  $result: "";
-  $list-length: length($list);
-
-  @for $i from 1 through $list-length {
-    $result: $result + nth($list, $i);
-    @if $i != $list-length {
-      $result: $result + $separator;
-    }
-  }
-
-  @return $result;
-}
-
-//
-// Mixins:
-//
-
-@mixin border-box-inherit() {
-  // Credit: https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
-  html {
-    box-sizing: border-box;
-  }
-
-  *, *:before, *:after {
-    box-sizing: inherit;
-  }
-}
-
-// Inspiration: http://www.sitepoint.com/managing-responsive-breakpoints-sass/
-@mixin breakpoint($name, $bp-map: $breakpoints) {
-  $bp: map-get($bp-map, $name);
-  $conditions: ();
-
-  @each $type, $value in $bp {
-    $conditions: append($conditions, "(#{$type}: #{$value})");
-  }
-
-  @media #{list-implode($conditions, " and ")} {
-    @content;
-  }
-}
-
-@mixin button(
-  $bg-color: #fff,
-  $color: #333,
-  $border: 1px,
-  $border-color: #333,
-  $border-radius: 5px,
-  $hover-bg-color: #333,
-  $hover-color: #fff,
-  $hover-border-color: #333
-) {
-  background-color: $bg-color;
-  border-color: $border-color;
-  border-style: solid;
-  border-radius: $border-radius;
-  border-width: $border;
-  color: $color;
-  padding: 3px 8px;
-
-  &:hover,
-  &:focus {
-    background-color: $hover-bg-color;
-    border-color: $hover-border-color;
-    color: $hover-color;
-  }
-}
-
-// Borrowed from: https://css-tricks.com/snippets/sass/bem-mixins/
-@mixin el($el) {
-  &__#{$el} {
-    @content;
-  }
-}
-
-// Borrowed from: https://css-tricks.com/snippets/sass/bem-mixins/
-@mixin mod($mod) {
-  &--#{$mod} {
-    @content;
-  }
-}
-
-@mixin sr-only() {
-  border: 0 !important;
-  clip: rect(1px, 1px, 1px, 1px);
-  height: 1px !important;
-  overflow: hidden;
-  padding: 0 !important;
-  position: absolute !important;
-  width: 1px !important;
-}
 
 //
 // Page Styles:

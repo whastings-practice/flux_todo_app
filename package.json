@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/whastings-practice/flux_todo_app#readme",
   "dependencies": {
+    "css_utils": "https://github.com/whastings/css_utils.git",
     "closure-type": "^0.1.0",
     "cuid": "^1.2.5",
     "flux": "^2.0.3",
