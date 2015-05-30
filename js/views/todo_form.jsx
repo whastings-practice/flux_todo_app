@@ -1,24 +1,37 @@
 import React from 'react';
+import validateTodo from '../util/validate_todo';
 
 export default React.createClass({
   getDefaultProps() {
     return {
       buttonText: 'Save',
-      data: {}
+      data: {},
+      formTitle: 'Edit Todo'
     };
   },
   getInitialState() {
     var data = this.props.data;
     return {
+      errors: [],
       title: data.title || ''
     };
   },
   render() {
-    var title = this.state.title,
-        buttonText = this.props.buttonText;
+    var errors = this.state.errors,
+        formTitle = this.props.formTitle,
+        title = this.state.title,
+        buttonText = this.props.buttonText,
+        renderedErrors = '';
+
+    if (errors.length) {
+      renderedErrors = renderErrors(errors);
+    }
+
     return (
       <form className="todo-list__form" onSubmit={this._save}>
-        <label for="title-input">Title</label>
+        <h2>{formTitle}</h2>
+        {renderedErrors}
+        <label htmlFor="title-input">Title</label>
         <input type="text"
                id="title-input"
                placeholder="Title"
@@ -30,9 +43,16 @@ export default React.createClass({
     );
   },
   _save(event) {
-    var shouldResetState;
+    var shouldResetState,
+        todo = dataFromRefs(this.refs),
+        errors = validateTodo(todo);
     event.preventDefault();
-    shouldResetState = this.props.onSave(dataFromRefs(this.refs));
+
+    if (errors.length) {
+      return this.setState({errors});
+    }
+
+    shouldResetState = this.props.onSave(todo);
     if (shouldResetState) {
       this.setState(this.getInitialState());
     }
@@ -46,4 +66,15 @@ function dataFromRefs(refs) {
   return {
     title: refs.titleInput.getDOMNode().value
   };
+}
+
+function renderErrors(errors) {
+  return (
+    <div className="todo-list__form__errors">
+      <h3>Error</h3>
+      <ul>
+        {errors.map(error => <li key={error}>{error}</li>)}
+      </ul>
+    </div>
+  );
 }

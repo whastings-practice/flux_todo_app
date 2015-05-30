@@ -23,7 +23,7 @@ export default React.createClass({
     return (
       <div className="todo-list-app">
         <h1>Your Todos</h1>
-        <TodoForm onSave={this._createTodo}/>
+        <TodoForm onSave={this._createTodo} buttonText="Add" formTitle="Add Todo"/>
         <TodoList items={todos} actions={actions} filter={currentFilter}/>
         <TodoFilter onFilter={this._addFilterClass}/>
       </div>
