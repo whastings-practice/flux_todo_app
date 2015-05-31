@@ -30,22 +30,26 @@
       border: 0;
       position: absolute;
       right: 0;
+      top: 3px;
 
       @include el(text) {
         @include sr-only();
       }
     }
+
+    @include el(edit-link) {
+      position: absolute;
+      right: 35px;
+    }
   }
 
   @include el(form) {
     button {
-      @include button(
-        $bg-color: $button-color,
-        $border-color: $button-color,
-        $color: #fff,
-        $hover-bg-color: lighten($button-color, 15%),
-        $hover-border-color: lighten($button-color, 15%)
-      );
+      margin-right: 10px;
+    }
+
+    h2 {
+      margin-top: 0;
     }
 
     input[type="text"] {

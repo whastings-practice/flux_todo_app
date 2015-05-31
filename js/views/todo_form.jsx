@@ -9,6 +9,7 @@ export default React.createClass({
       formTitle: 'Edit Todo'
     };
   },
+
   getInitialState() {
     var data = this.props.data;
     return {
@@ -16,6 +17,7 @@ export default React.createClass({
       title: data.title || ''
     };
   },
+
   render() {
     var errors = this.state.errors,
         formTitle = this.props.formTitle,
@@ -38,12 +40,17 @@ export default React.createClass({
                ref="titleInput"
                value={title}
                onChange={this._updateForm}/>
-        <button>{buttonText}</button>
+        <button className="btn">{buttonText}</button>
+        <button className="btn" type="button" onClick={this.props.onClose}>
+          Cancel
+        </button>
       </form>
     );
   },
+
   _save(event) {
     var shouldResetState,
+        close = this.props.onClose,
         todo = dataFromRefs(this.refs),
         errors = validateTodo(todo);
     event.preventDefault();
@@ -56,7 +63,10 @@ export default React.createClass({
     if (shouldResetState) {
       this.setState(this.getInitialState());
     }
+
+    close();
   },
+
   _updateForm() {
     this.setState(dataFromRefs(this.refs));
   }
