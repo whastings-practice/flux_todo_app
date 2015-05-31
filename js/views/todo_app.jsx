@@ -36,6 +36,9 @@ export default React.createClass({
             Add New
           </button>
         }
+        <button type="button" className="btn" onClick={this._clearCompleted}>
+          Clear Completed
+        </button>
         <TodoList items={todos} actions={actions} filter={currentFilter}/>
         <TodoFilter onFilter={this._addFilterClass}/>
       </div>
@@ -44,6 +47,10 @@ export default React.createClass({
 
   _addFilterClass(filter) {
     this.setState({currentFilter: filter});
+  },
+
+  _clearCompleted() {
+    this.props.actions.clearCompleted(this.state.todos.toJS());
   },
 
   _closeShowForm() {

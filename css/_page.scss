@@ -41,4 +41,5 @@ a:hover {
     $hover-bg-color: lighten($button-color, 15%),
     $hover-border-color: lighten($button-color, 15%)
   );
+  margin-right: 10px;
 }

@@ -12,6 +12,20 @@ export default closureType(function todoActions(self, api, initArgs) {
   })();
 
   closureType.extend(api, {
+    clearCompleted(todos) {
+      var completed = Object.keys(todos)
+        .map(id => todos[id])
+        .filter(todo => todo.completed);
+
+      Promise.all(completed.map(todo => self.persistence.remove(todo)))
+        .then(() => {
+          dispatcher.dispatch({
+            type: constants.TODO_REMOVE,
+            todos: completed
+          });
+        });
+    },
+
     create(todo) {
       copyDefaults(todo);
       self.persistence.create(todo).then(todo => {
@@ -35,7 +49,7 @@ export default closureType(function todoActions(self, api, initArgs) {
       self.persistence.remove(todo).then(() => {
         dispatcher.dispatch({
           type: constants.TODO_REMOVE,
-          todo
+          todos: [todo]
         });
       });
     },

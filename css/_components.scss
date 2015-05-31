@@ -40,10 +40,13 @@
     @include el(edit-link) {
       position: absolute;
       right: 35px;
+      top: 5px;
     }
   }
 
   @include el(form) {
+    margin: 10px 0;
+
     button {
       margin-right: 10px;
     }

@@ -2,6 +2,10 @@ import React from 'react';
 import validateTodo from '../util/validate_todo';
 
 export default React.createClass({
+  componentDidMount() {
+    React.findDOMNode(this.refs.titleInput).focus();
+  },
+
   getDefaultProps() {
     return {
       buttonText: 'Save',

@@ -46,8 +46,8 @@ var todoStoreType = closureType(function(self, api, initArgs) {
   }
 
   function remove(action) {
-    var todo = action.todo;
-    self.todos = self.todos.delete(todo.id);
+    var toRemove = action.todos;
+    self.todos = toRemove.reduce((todos, todo) => todos.delete(todo.id), self.todos);
   }
 
   function update(action) {
