@@ -81,6 +81,14 @@
   display: none;
 }
 
+.todo-list__item:first-child .todo-list__item__edit-link {
+  top: 10px;
+}
+
+.todo-list__item:first-child .todo-list__item__delete-btn {
+  top: 8px;
+}
+
 .todo-filter {
   text-align: center;
 

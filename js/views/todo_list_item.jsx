@@ -1,8 +1,6 @@
+import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
 import React from 'react';
-import ReactAddons from 'react/addons';
 import TodoForm from './todo_form.jsx';
-
-var PureRenderMixin = ReactAddons.addons.PureRenderMixin;
 
 var ITEM_CLASS = 'todo-list__item';
 
