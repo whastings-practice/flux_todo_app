@@ -17,14 +17,13 @@
   },
   "homepage": "https://github.com/whastings-practice/flux_todo_app#readme",
   "dependencies": {
-    "css_utils": "https://github.com/whastings/css_utils.git",
     "closure-type": "^0.1.0",
     "cuid": "^1.2.5",
     "flux": "^2.0.3",
     "immutable": "^3.7.2",
     "keymirror": "^0.1.1",
-    "normalize.css": "^3.0.3",
-    "react": "^0.13.3"
+    "react": "^0.13.3",
+    "todo_app_styles": "https://github.com/whastings-practice/todo_app_styles.git"
   },
   "devDependencies": {
     "aliasify": "^1.7.2",
